@@ -1,4 +1,3 @@
-/// <reference path="../../typings/node/node.d.ts" />
 /// <reference path="../../typings/base64-js.d.ts" />
 
 import * as b64 from 'base64-js';
@@ -146,7 +145,7 @@ export module ArrayHelper {
         rank += maxDepthRank;
         return rank;
     }
-    export function isArray(obj: any) {
+    export function isArray(obj: any): obj is [] {
         return Object.prototype.toString.call(obj) === "[object Array]";
     }
 }
@@ -280,9 +279,9 @@ export class xml2JsObject {
         const TYPE_STR: string = "__type";
         const TEXT_STR: string = "__text";
         switch (xmlNode.nodeType) {
-            case 1/*Node.ELEMENT_NODE*/:
-                if (xmlNode.prefix && xmlNode.localName !== xmlNode.nodeName)
-                    obj[PREFIX_STR] = xmlNode.prefix;
+            case 1 /*Node.ELEMENT_NODE*/: 
+                if ((<Element>xmlNode).prefix && xmlNode.localName !== xmlNode.nodeName)
+                    obj[PREFIX_STR] = (<Element>xmlNode).prefix;
 
                 if (this.typeIncludedNS.indexOf(xmlNode.namespaceURI) >= 0) {
                     obj[TYPE_STR] = xmlNode.localName;
